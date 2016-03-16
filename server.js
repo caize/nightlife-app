@@ -1,12 +1,23 @@
 'use strict';
 
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
+const routes = require('./app/routes');
+//const mongoose = require('mongoose');
+const config = require('./app/config/index');
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello world');
-});
+// mongoose.connect(config.dbURI, (err, db) => {
+//   if (err) {
+//     throw new Error('Error connecting to database');
+//   }
+//   console.log(config.dbURI);
+//   console.log('Connected to nightlife database');
+// });
 
-app.listen(3000, () => {
-  console.log('app listening on port 3000');
+// main app routes
+app.use('/', routes.router);
+
+app.listen(PORT, () => {
+  console.log('App listening on port ' + PORT);
 })
