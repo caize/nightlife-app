@@ -32,6 +32,8 @@
     "history": "^1.17.0",
     "mongoose": "^4.3.6",
     "mongoose-validator": "^1.2.4",
+    "passport": "0.3.2",
+    "passport-twitter": "1.0.4",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-redux": "^4.1.1",
