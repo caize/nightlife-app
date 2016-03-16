@@ -5,7 +5,13 @@ if (process.env.NODE_ENV === 'production') {
   module.exports = {
     host: process.env.host || "",
     dbURI: process.env.dbURI,
-    "sessionSecret": process.env.sessionSecret
+    sessionSecret: process.env.sessionSecret,
+    twitter: {
+      consumerKey: process.env.twitterConsumerKey,
+      consumerSecret: process.env.twitterConsumerSecret,
+      callback: process.env.host + "/auth/twitter/callback",
+      profileFields: ["id", "displayName"]
+    }
   }
 } else {
   module.exports = require('./development.json');
