@@ -1,7 +1,7 @@
 // TODO: get previous search if applicable
 //       when creating a new user
 'use strict';
-const db = require('../');
+const db = require('../db');
 
 // Find a single user based on a key
 let findOne = profileId => {
@@ -30,7 +30,21 @@ let createNewUser = profile => {
   });
 }
 
+// ES6 promisified version of findById
+let findById = id => {
+  return new Promise((resolve, reject) => {
+    db.userModel.findById(id, (error, user) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(user);
+      }
+    });
+  });
+}
+
 module.exports = {
   findOne,
-  createNewUser
+  createNewUser,
+  findById
 }
