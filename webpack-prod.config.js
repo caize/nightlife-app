@@ -2,10 +2,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var path = require('path');
 
-var PRODUCTION = JSON.parse(process.env.PROD_ENV || false);
-
 module.exports = {
-  devtool: PRODUCTION ? 'eval' : 'inline-source-map',
   entry: [
     './public/src/index.js'
   ],
@@ -35,25 +32,20 @@ module.exports = {
       }
   ]
 },
-  plugins: !PRODUCTION ? [
+  plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin("./styles/main.css"),
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    })
-  ] : [
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.DedupePlugin(),
     new ExtractTextPlugin("./styles/main.css"),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      compress: {
+        warnings: false
       }
     })
   ],
