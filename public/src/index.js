@@ -1,16 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from '../styles/style.scss';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+import rootReducer from './reducers';
+import promise from 'redux-promise';
+import App from './containers/App';
 
+let store;
 
-const App = (props) => {
-  return (
-    <div>Hey I'm the app component</div>
+if (process.env.NODE_ENV !== 'production') {
+  store = createStore(
+    rootReducer, applyMiddleware(thunk, promise, logger())
   );
 }
 
+else {
+  store = createStore(
+    rootReducer, applyMiddleware(thunk, promise)
+  );
+}
 
-ReactDOM.render(<App />, document.getElementById('container'));
+ReactDOM.render(
+  <App store={store}/>
+, document.querySelector('#container'));
 
 
 
