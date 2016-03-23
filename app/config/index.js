@@ -11,6 +11,17 @@ if (process.env.NODE_ENV === 'production') {
       consumerSecret: process.env.twitterConsumerSecret,
       callbackURL: process.env.host + "/auth/twitter/callback",
       profileFields: ["id", "displayName"]
+    },
+    "fourSquare": {
+      "clientId": process.env.fourSquareId,
+      "clientSecret": process.env.fourSquareSecret,
+      "version": process.env.fourSquareVersion
+    },
+    "yelp": {
+      "consumer_key": process.env.yelpConsumerKey,
+      "consumer_secret": process.env.yelpConsumerSecret,
+      "token": process.env.yelpToken,
+      "token_secret": process.env.tokenSecret
     }
   }
 } else {

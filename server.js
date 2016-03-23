@@ -9,7 +9,25 @@ const db = require('./app/db');
 const config = require('./app/config/index');
 const passport = require('passport');
 const webpack = require('webpack');
+const bodyParser = require('body-parser');
+
 const isDevMode = (process.env.NODE_ENV !== 'production');
+
+// // // Cross Domain requests
+// let allowCrossDomain = function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cache-Control");
+//
+// //     // intercept OPTIONS method
+// //     if ('OPTIONS' == req.method) {
+// //       res.send(200);
+// //     }
+// //     else {
+// //       next();
+// //     }
+// };
+// app.use(allowCrossDomain);
 
 if (isDevMode) {
   // Use Webpack Hot middleware in development
@@ -37,10 +55,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Route middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Mount routes
 app.use('/auth', routes.auth);
+app.use('/api', routes.api);
 app.use('/', routes.main);
 
 

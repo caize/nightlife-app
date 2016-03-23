@@ -27,6 +27,10 @@ module.exports = {
         loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
       },
       {
+        test   :  /\.json$/,
+        loader : 'json'
+      },
+      {
         test   :  /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
         loader : 'file-loader'
       }
@@ -50,6 +54,6 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx', '.scss']
+    extensions: ['', '.js', '.jsx', '.json', '.scss']
   }
 };

@@ -1,16 +1,48 @@
-import React from 'react';
-import SearchBar from '../components/SearchBar';
+import React, { Component } from 'react';
+import { getVenues } from '../actions';
+import SearchBar from './SearchBar';
+import VenueList from '../components/VenueList';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-const App = (props) => {
-  return (
-    <div className="main-app">
-      <header>
-        <h1>Unwind From The Grind</h1>
-        <p>Your answer to what's going on tonight in your area</p>
-      </header>
-      <SearchBar />
-    </div>
-  );
+class App extends Component {
+  componentWillMount() {
+    this.props.getVenues('waukesha');
+  }
+
+  searchVenues(location) {
+    this.props.getVenues(location);
+  }
+
+  render() {
+    return (
+      <div className="main-app">
+        <header>
+          <h1>Unwind From The Grind</h1>
+          <p>Your answer to what's going on tonight in your area</p>
+        </header>
+        <SearchBar />
+        <hr/>
+        {
+          this.props.venues && this.props.venues.length > 0 ?
+            <VenueList venues={ this.props.venues } />
+          : null
+        }
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    venues: state.venue.all
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getVenues: bindActionCreators(getVenues, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

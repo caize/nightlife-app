@@ -22,13 +22,18 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        loader: "babel-loader",
+        cacheDirectory: true
       },
       {
         test: /\.scss$/,
         include: path.join(__dirname, 'public', 'styles'),
         exclude: ['node_modules', 'app'],
         loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+      },
+      {
+        test   :  /\.json$/,
+        loader : 'json'
       },
       {
         test   :  /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
@@ -47,6 +52,6 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx', '.scss']
+    extensions: ['', '.js', '.jsx', '.json', '.scss']
   }
 };

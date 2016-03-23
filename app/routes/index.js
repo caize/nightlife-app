@@ -3,6 +3,7 @@
 const auth = require('./auth');
 const user = require('./user');
 const venue = require('./venue');
+const api = require('./api');
 
 const router = require('express').Router();
 
@@ -23,5 +24,6 @@ module.exports = {
   main: router,
   auth,
   user,
-  venue
+  venue,
+  api
 }

@@ -21,10 +21,19 @@ else {
   store = createStore(
     rootReducer, applyMiddleware(thunk, promise)
   );
+  module.hot.accept('./reducers', () => {
+    const nextRootReducer = () => {
+      require('./reducers/index');
+      store.replaceReducer(nextRootReducer);
+    }
+  });
+
 }
 
 ReactDOM.render(
-  <App store={store}/>
+  <Provider store={store}>
+    <App />
+  </Provider>
 , document.querySelector('#container'));
 
 
@@ -33,7 +42,4 @@ ReactDOM.render(
 
 if (module.hot) {
   module.hot.accept();
-  module.hot.dispose(function() {
-
-  });
 }
