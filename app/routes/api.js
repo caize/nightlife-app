@@ -15,7 +15,6 @@ apiRouter.get('/yelp/:location', (req, res, next) => {
     category_filter: "bars"
   }
   yelp.request_yelp(searchOptions, (error, response, body) => {
-    console.log('called yelp search');
     if (error) {
       return res.send(error);
     }
