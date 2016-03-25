@@ -9,6 +9,8 @@ function venueSuccess(venues) {
   }
 }
 
+
+
 export function getVenues(keyword) {
   let url = `/api/yelp/${keyword}`
   return (dispatch) => {
@@ -16,6 +18,7 @@ export function getVenues(keyword) {
       let venues = response.data.businesses;
       console.log(venues);
       dispatch(venueSuccess(venues));
+      dispatch(updateSearch(keyword));
     })
     .catch((error) => {
       console.log('error: ', error);
@@ -25,7 +28,7 @@ export function getVenues(keyword) {
 
 // Search Actions
 
-export function updateSearch(term) {
+function updateSearch(term) {
   return {
     type: constants.UPDATE_SEARCH_TERM,
     payload: term
