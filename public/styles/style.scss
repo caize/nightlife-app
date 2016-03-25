@@ -239,6 +239,9 @@ header {
 
 /**** Animations ****/
 
+// SlideInDown by Dane Den and slideInUp based off of Dane Den's Animate.css
+// https://github.com/daneden/animate.css
+
 @-webkit-keyframes slideInDown {
   from {
     -webkit-transform: translate3d(0, -100%, 0);
