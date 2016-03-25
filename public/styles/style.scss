@@ -1,3 +1,299 @@
+$dark-purple: rgb(76, 66, 132);
+$darkest-purple: rgb(56, 46, 112);
+$button-transition: background .20s ease;
+$orange: rgba(247, 148, 9, 1);
+
+*:focus {
+  outline: 0;
+  box-shadow: 0 0 2px 1px rgba(240,240,240, .8);
+}
+
 body {
-  background: lightGrey;
+  background-image:url('/img/city.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+li {
+  list-style: none;
+}
+
+.main-app {
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+/**** Header ****/
+
+header {
+  width: 90%;
+  text-align: center;
+  margin: 10px auto;
+  animation: slideInDown .7s ease;
+
+  h1 {
+    color: rgb(249, 247, 245);
+    font-size: 3.5rem;
+    text-shadow: 0 0 20px rgba(247, 148, 9, 1),
+                 0 0 40px rgba(247, 148, 9, 1),
+                 0 0 80px rgba(247, 148, 9, 1),
+                 0 0 100px rgba(247, 148, 9, 1)
+  }
+
+  p {
+    color: white;
+    font-size: 1.8rem;
+    text-shadow: 1px 1px 5px rgba(26, 16, 82, 1),
+                  1px 1px 5px rgba(26, 16, 82, 1);
+  }
+}
+
+/**** Search Bar ****/
+
+.search-box {
+  width: 90%;
+  margin: 10px auto;
+
+  form {
+    width: 100%;
+    margin: 5px auto 15px;
+    text-align: center;
+    position: relative;
+
+    input[type="text"] {
+      width: 100%;
+      padding: 5px 0;
+      border: 3px solid rgba(240,240,240, .8);
+      font-size: 1.3rem;
+      background: $darkest-purple;
+      color: white;
+      border-radius: 10px;
+      text-indent: 15px;
+
+      &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: rgba(240,240,240, .9);
+}
+      &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+         color: rgba(240,240,240, .9);
+         opacity:  1;
+      }
+      &::-moz-placeholder { /* Mozilla Firefox 19+ */
+         color: rgba(240,240,240, .9);
+         opacity:  1;
+      }
+      &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+         color: rgba(240,240,240, .9);
+      }
+      &:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+        color: rgba(240,240,240, .9);
+      }
+
+      &:focus {
+        color: rgba(240,240,240, .9);
+        outline: none;
+        box-shadow: 0 0 2px 1px rgba(240,240,240, .8);
+      }
+    }
+    button[type="submit"] {
+      padding: 6px 14px;
+      font-size: 1.3rem;
+      background: rgba(80,80,80,1);
+      color: white;
+      border: 2px solid rgba(240,240,240, 1);
+      cursor: pointer;
+      transition: $button-transition;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      position: absolute;
+      top: 0;
+      right: -5px;
+      box-shadow: inset -3px -3px 4px rgba(40, 40, 40, .8);
+
+      &:hover {
+        background: rgba(70,70,70,1);
+      }
+    }
+  }
+}
+
+/**** Search Results ****/
+
+.venue-list {
+  width: 100%;
+  margin: 20px auto;
+  animation: slideInUp .5s .2s ease forwards;
+  visibility: hidden;
+
+  .venue {
+    width: 100%;
+    margin-bottom: 15px;
+    background: rgba(240,240,240,.9);
+    padding: 10px 0 15px;
+    box-sizing: border-box;
+    position: relative;
+
+    .venue-container {
+      display: block;
+      position: relative;
+      width: 90%;
+      margin: 0 auto;
+
+      .venue-img {
+        display: inline-block;
+        margin-top: 0;
+      }
+
+      h3 {
+        width: 100%;
+        margin: 0 auto 10px 0;
+        border-bottom: 1px solid $dark-purple;
+
+        a {
+          color: $dark-purple;
+          font-size: 1.3rem;
+          text-decoration: none;
+          transition: color .25s ease;
+
+          &:hover {
+            color: $darkest-purple;
+          }
+        }
+      }
+
+      span {
+        display: inline-block;
+        position: relative;
+        bottom: 5px;
+        margin-right: 5px;
+      }
+
+      .venue-info {
+        display: inline-block;
+        width: 60%;
+        vertical-align: top;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+
+        @media only screen and (min-width: 750px) {
+          max-width: 150px;
+        }
+
+        .review-count {
+          margin-top: 4px;
+          margin-bottom: 5px;
+        }
+
+        .num-going {
+          padding: 5px 15px;
+          border-radius: 20px;
+          font-size: 1.1rem;
+          background: $dark-purple;
+          color: white;
+          display: inline-block;
+          margin: 0;
+          cursor: pointer;
+          border: none;
+          transition: $button-transition;
+
+          &:hover {
+            background: $darkest-purple;
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+
+      .venue-review {
+        margin: 0;
+        @media only screen and (min-width: 750px) {
+          width: 60%;
+          display: inline-block;
+          position: absolute;
+          top: 32px;
+          left: 280px;
+          font-size: 1.3rem;
+        }
+
+        @media only screen and (min-width: 955px) {
+          bottom: 30px;
+          left: 300px;
+        }
+        .text {
+          margin: 0;
+          font-size: 1.3rem;
+          display: inline-block;
+          position: relative;
+        }
+      }
+
+    }
+
+  }
+}
+
+
+/**** Animations ****/
+
+@-webkit-keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+
+@-webkit-keyframes slideInUp {
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: hidden;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+}
+
+.slideInUp {
+  -webkit-animation-name: slideInUp;
+  animation-name: slideInUp;
 }

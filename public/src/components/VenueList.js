@@ -8,6 +8,12 @@ export default class VenueList extends Component {
         <Venue
           key={venue.id}
           name={venue.name}
+          img={venue.image_url}
+          rating={venue.rating}
+          ratingImg={venue.rating_img_url}
+          ratingCount={venue.review_count}
+          url={venue.url}
+          text={venue.snippet_text}
         />
       );
     });

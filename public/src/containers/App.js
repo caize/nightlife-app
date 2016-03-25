@@ -22,7 +22,6 @@ class App extends Component {
           <p>Your answer to what's going on tonight in your area</p>
         </header>
         <SearchBar />
-        <hr/>
         {
           this.props.venues && this.props.venues.length > 0 ?
             <VenueList venues={ this.props.venues } />

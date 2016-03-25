@@ -12,7 +12,9 @@ class SearchBar extends Component {
 
   handleSearch(e) {
     e.preventDefault();
-    this.props.getVenues(this.props.currentTerm);
+    if (this.props.currentTerm && this.props.currentTerm !== '') {
+      this.props.getVenues(this.props.currentTerm);
+    }
   }
 
   handleInputChange(e) {
@@ -34,7 +36,7 @@ class SearchBar extends Component {
             type="submit"
             className="search-button"
           >
-            Go!
+            Go
           </button>
         </form>
       </div>
