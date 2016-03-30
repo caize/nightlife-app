@@ -13,6 +13,15 @@ const bodyParser = require('body-parser');
 
 const isDevMode = (process.env.NODE_ENV !== 'production');
 
+// Headers
+const setCustomHeaders = (req, res, next) => {
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  next();
+}
+
+app.use(setCustomHeaders);
+
 // Session middleware
 app.use(nightLife.session);
 app.use(passport.initialize());
