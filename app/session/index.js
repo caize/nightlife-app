@@ -19,6 +19,6 @@ if (process.env.NODE_ENV === 'production') {
   module.exports = session({
     secret: config.sessionSecret,
     resave: false, // prevent calls to DB when session has not changed
-    saveUninitialized: true // stores session even when no data is available to be stored
+    saveUninitialized: true, // stores session even when no data is available to be stored
   });
 }

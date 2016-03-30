@@ -1,4 +1,5 @@
 import React from 'react';
+import AttendButton from '../containers/AttendButton';
 
 const Venue = (props) => {
   return (
@@ -26,7 +27,7 @@ const Venue = (props) => {
             {props.ratingCount} reviews
           </p>
 
-          <button className="num-going">0 going</button>
+          <AttendButton name={props.name}/>
         </div>
         <div className="venue-review">
           <p className="text">{`"${props.text}"`}</p>

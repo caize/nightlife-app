@@ -1,3 +1,5 @@
+@import '_normalize';
+
 $dark-purple: rgb(76, 66, 132);
 $darkest-purple: rgb(56, 46, 112);
 $button-transition: background .20s ease;
@@ -6,6 +8,10 @@ $orange: rgba(247, 148, 9, 1);
 *:focus {
   outline: 0;
   box-shadow: 0 0 2px 1px rgba(240,240,240, .8);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -67,26 +73,26 @@ header {
       border: 3px solid rgba(240,240,240, .8);
       font-size: 1.3rem;
       background: $darkest-purple;
-      color: white;
+      color: rgba(240,240,240,.8);
       border-radius: 10px;
       text-indent: 15px;
 
       &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: rgba(240,240,240, .9);
+    color: rgba(240,240,240, .8);
 }
       &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-         color: rgba(240,240,240, .9);
+         color: rgba(240,240,240, .8);
          opacity:  1;
       }
       &::-moz-placeholder { /* Mozilla Firefox 19+ */
-         color: rgba(240,240,240, .9);
+         color: rgba(240,240,240, .8);
          opacity:  1;
       }
       &:-ms-input-placeholder { /* Internet Explorer 10-11 */
-         color: rgba(240,240,240, .9);
+         color: rgba(240,240,240, .8);
       }
       &:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
-        color: rgba(240,240,240, .9);
+        color: rgba(240,240,240, .8);
       }
 
       &:focus {
@@ -183,6 +189,12 @@ header {
         .review-count {
           margin-top: 4px;
           margin-bottom: 5px;
+        }
+
+        a {
+          &.num-going {
+            text-decoration: none;
+          }
         }
 
         .num-going {

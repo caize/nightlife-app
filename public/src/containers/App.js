@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getVenues } from '../actions';
+import { getVenues, checkAuthenticated } from '../actions';
 import SearchBar from './SearchBar';
 import VenueList from '../components/VenueList';
 import { connect } from 'react-redux';
@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 
 class App extends Component {
   componentWillMount() {
+    this.props.checkAuthenticated();
     this.props.getVenues('waukesha');
   }
 
@@ -40,7 +41,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getVenues: bindActionCreators(getVenues, dispatch)
+    getVenues: bindActionCreators(getVenues, dispatch),
+    checkAuthenticated: bindActionCreators(checkAuthenticated, dispatch)
   }
 }
 

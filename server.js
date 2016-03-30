@@ -13,25 +13,21 @@ const bodyParser = require('body-parser');
 
 const isDevMode = (process.env.NODE_ENV !== 'production');
 
-// // // Cross Domain requests
-// let allowCrossDomain = function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cache-Control");
-//
-// //     // intercept OPTIONS method
-// //     if ('OPTIONS' == req.method) {
-// //       res.send(200);
-// //     }
-// //     else {
-// //       next();
-// //     }
-// };
-// app.use(allowCrossDomain);
+// Session middleware
+app.use(nightLife.session);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Route middleware
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
 if (isDevMode) {
   // Use Webpack Hot middleware in development
-  (function() {
+  (function () {
 
     // Create & configure a webpack compiler
     const webpack = require('webpack');
@@ -40,30 +36,29 @@ if (isDevMode) {
 
     // Attach the dev middleware to the compiler & the server
     app.use(require("webpack-dev-middleware")(compiler, {
-      noInfo: true, publicPath: webpackConfig.output.publicPath
+      noInfo: true,
+      headers: { "Access-Control-Allow-Origin":
+        "http://localhost:3000",
+        "Access-Control-Allow-Credentials": "true"
+      },
+      publicPath: webpackConfig.output.publicPath
     }));
 
     app.use(require("webpack-hot-middleware")(compiler, {
-      log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
+      log: console.log,
+      path: '/__webpack_hmr',
+      heartbeat: 10 * 1000
     }));
   })();
 }
 
-// Session middleware
-app.use(nightLife.session);
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Route middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(express.static('public'));
 
 // Mount routes
 app.use('/auth', routes.auth);
 app.use('/api', routes.api);
+app.use('/venue', routes.venue);
+app.use('/users', routes.user);
 app.use('/', routes.main);
-
 
 app.listen(PORT, () => {
   console.log('App listening on port ' + PORT);

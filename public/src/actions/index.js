@@ -2,14 +2,25 @@ import * as constants from '../constants';
 import axios from 'axios';
 
 // Venue actions
+
+
+export function updateVenue(venueName) {
+  return (dispatch) => {
+    axios.get(`/venue/${venueName}`).then(response => {
+      console.log(response);
+    })
+    .catch(e => {
+      console.log(e);
+    })
+  }
+}
+
 function venueSuccess(venues) {
   return {
     type: constants.GET_VENUES,
     payload: venues
   }
 }
-
-
 
 export function getVenues(keyword) {
   let url = `/api/yelp/${keyword}`
@@ -26,9 +37,27 @@ export function getVenues(keyword) {
   }
 }
 
+function userLoggedIn(user) {
+  return {
+    type: constants.USER_LOGGED_IN,
+    payload: user
+  }
+}
+
+export function checkAuthenticated() {
+  return (dispatch) => {
+    axios.get('/users/current').then(user => {
+      dispatch(userLoggedIn(user.data));
+    })
+    .catch(e => {
+      console.log(e);
+    })
+  }
+}
+
 // Search Actions
 
-function updateSearch(term) {
+export function updateSearch(term) {
   return {
     type: constants.UPDATE_SEARCH_TERM,
     payload: term
