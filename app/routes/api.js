@@ -2,6 +2,7 @@
 
 const apiRouter = require('express').Router();
 const yelpApi = require('../helpers/yelpApi');
+const h = require('../helpers');
 
 apiRouter.get('/yelp/:location', (req, res, next) => {
   let yelp = new yelpApi();
@@ -19,7 +20,18 @@ apiRouter.get('/yelp/:location', (req, res, next) => {
       return res.send(error);
     }
     else {
-      return res.json(JSON.parse(body));
+      let apiResults = JSON.parse(body);
+      // Get all db venue entries
+      h.getAllVenues().then(dbVenues => {
+        console.log(dbVenues);
+      })
+      .catch(e => {
+        res.send(e);
+      })
+      // iterate through apiResults and check if it is in db
+      // If in DB, add user list to venue for response
+
+      return res.json(apiResults);
     }
   });
 });
