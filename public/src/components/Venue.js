@@ -27,7 +27,7 @@ const Venue = (props) => {
             {props.ratingCount} reviews
           </p>
 
-          <AttendButton name={props.name}/>
+          <AttendButton id={props.id}/>
         </div>
         <div className="venue-review">
           <p className="text">{`"${props.text}"`}</p>

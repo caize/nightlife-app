@@ -11,7 +11,7 @@ class AttendButton extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.updateVenue(this.props.name);
+    this.props.updateVenue(this.props.id);
   }
 
   render() {

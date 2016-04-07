@@ -3,6 +3,8 @@
 'use strict';
 const db = require('../db');
 
+/**** User Helpers ****/
+
 // Find a single user based on a key
 let findOne = profileId => {
   return db.userModel.findOne({
@@ -43,8 +45,90 @@ let findById = id => {
   });
 }
 
+/**** Venue Helpers ****/
+
+// Search for an existing venue
+let findOneVenue = id => {
+  return new Promise((resolve, reject) => {
+    db.venueModel.findOne({ venueId: id }, (error, venue) => {
+      if (error) {
+        reject('Could not find Venue: ', error);
+      } else {
+        resolve(venue, ' found');
+      }
+    });
+  });
+}
+
+//Add user to venue
+let addUserToVenue = (venueId, userId) => {
+  return new Promise((resolve, reject) => {
+    db.venueModel.update(
+      {venueId: venueId},
+      { $addToSet: { userIds: userId}},
+      ((err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(console.log('user added to venue attendees'));
+        }
+      })
+    );
+  })
+}
+
+//remove user from venue
+let removeUserFromVenue = (venueId, userId) => {
+  return new Promise((resolve, reject) => {
+    db.venueModel.update(
+      {venueId: venueId},
+      { $pull: {userIds: userId}},
+      ((err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(console.log('user removed from venue attendees'));
+        }
+      })
+    );
+  })
+}
+
+let addNewVenue = (venueId, userId) => {
+  return new Promise((resolve, reject) => {
+    let venue = new db.venueModel({
+      venueId: venueId,
+      userIds: [userId]
+    });
+    venue.save((err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(venue);
+      }
+    });
+  });
+}
+
+let getAllVenues = () => {
+  return new Promise((resolve, reject) => {
+    db.venueModel.find({}, (error, venues) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(JSON.parse(venues));
+      }
+    })
+  });
+}
+
 module.exports = {
   findOne,
   createNewUser,
-  findById
+  findById,
+  findOneVenue,
+  addNewVenue,
+  addUserToVenue,
+  removeUserFromVenue,
+  getAllVenues
 }

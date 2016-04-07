@@ -7,6 +7,7 @@ export default class VenueList extends Component {
       return (
         <Venue
           key={venue.id}
+          id={venue.id}
           name={venue.name}
           img={venue.image_url}
           rating={venue.rating}

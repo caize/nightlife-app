@@ -4,9 +4,9 @@ import axios from 'axios';
 // Venue actions
 
 
-export function updateVenue(venueName) {
+export function updateVenue(venueId) {
   return (dispatch) => {
-    axios.get(`/venue/${venueName}`).then(response => {
+    axios.get(`/venue/${venueId}`).then(response => {
       console.log(response);
     })
     .catch(e => {
