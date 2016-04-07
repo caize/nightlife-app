@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "webpack --config ./webpack-prod.config.js --progress --colors",
-    "start": "nodemon --ignore public/"
+    "dev": "nodemon --ignore public/",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
