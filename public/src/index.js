@@ -28,6 +28,11 @@ else {
     }
   });
 
+  // Hot module reloading:
+
+  if (module.hot) {
+    module.hot.accept();
+  }
 }
 
 ReactDOM.render(
@@ -35,11 +40,3 @@ ReactDOM.render(
     <App />
   </Provider>
 , document.querySelector('#container'));
-
-
-
-// Hot module reloading:
-
-if (module.hot) {
-  module.hot.accept();
-}
