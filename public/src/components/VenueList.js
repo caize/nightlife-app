@@ -4,6 +4,9 @@ import Venue from './Venue';
 export default class VenueList extends Component {
   renderVenues() {
     return this.props.venues.map(venue => {
+      if (typeof venue.userIds === 'undefined') {
+        venue.userIds = [];
+      }
       return (
         <Venue
           key={venue.id}
@@ -15,6 +18,7 @@ export default class VenueList extends Component {
           ratingCount={venue.review_count}
           url={venue.url}
           text={venue.snippet_text}
+          goingList={venue.userIds}
         />
       );
     });

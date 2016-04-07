@@ -20,9 +20,7 @@ class AttendButton extends Component {
         <button
           onClick={this.handleClick}
           className="num-going"
-        >
-          0 going
-        </button>
+        >{this.props.userCount} going</button>
       )
     }
     return (
