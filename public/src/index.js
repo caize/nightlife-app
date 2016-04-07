@@ -15,12 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
   store = createStore(
     rootReducer, applyMiddleware(thunk, promise, logger())
   );
-}
 
-else {
-  store = createStore(
-    rootReducer, applyMiddleware(thunk, promise)
-  );
   module.hot.accept('./reducers', () => {
     const nextRootReducer = () => {
       require('./reducers/index');
@@ -33,6 +28,12 @@ else {
   if (module.hot) {
     module.hot.accept();
   }
+}
+
+else {
+  store = createStore(
+    rootReducer, applyMiddleware(thunk, promise)
+  );
 }
 
 ReactDOM.render(
