@@ -21,17 +21,28 @@ apiRouter.get('/yelp/:location', (req, res, next) => {
     }
     else {
       let apiResults = JSON.parse(body);
+      apiResults = apiResults.businesses;
       // // Get all db venue entries
-      // h.getAllVenues().then(dbVenues => {
-      //   console.log(dbVenues);
-      // })
-      // .catch(e => {
-      //   console.log('Error: ', e);
-      // })
-      // // iterate through apiResults and check if it is in db
-      // // If in DB, add user list to venue for response
-
-      return res.json(apiResults);
+      h.getAllVenues().then(dbVenues => {
+        let combinedResult = apiResults.map((venue) => {
+          // Check if venue is in the database
+          let venueObject = dbVenues.find((dbVenue) => {
+            return dbVenue.venueId === venue.id;
+          });
+          if (typeof venueObject !== 'undefined') {
+            console.log("Add venueObject");
+            // Copy userIds array from db into yelp response
+            venue.userIds = venueObject.userIds;
+          }
+          return venue;
+        });
+        return res.json(combinedResult);
+      })
+      .catch(e => {
+        res.status(500).send('Error: ', e);
+      })
+      // iterate through apiResults and check if it is in db
+      // If in DB, add user list to venue for response
     }
   });
 });

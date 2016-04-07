@@ -116,7 +116,7 @@ let getAllVenues = () => {
       if (error) {
         reject(error);
       } else {
-        resolve(JSON.parse(venues));
+        resolve(venues);
       }
     })
   });
