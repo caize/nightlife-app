@@ -70,7 +70,7 @@ let addUserToVenue = (venueId, userId) => {
         if (err) {
           reject(err);
         } else {
-          resolve(console.log('user added to venue attendees'));
+          resolve('user added to venue attendees');
         }
       })
     );
@@ -87,7 +87,7 @@ let removeUserFromVenue = (venueId, userId) => {
         if (err) {
           reject(err);
         } else {
-          resolve(console.log('user removed from venue attendees'));
+          resolve('user removed from venue attendees');
         }
       })
     );
