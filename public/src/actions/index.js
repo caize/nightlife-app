@@ -6,12 +6,19 @@ import axios from 'axios';
 
 export function updateVenue(venueId) {
   return (dispatch) => {
-    axios.get(`/venue/${venueId}`).then(response => {
-
+    axios.get(`/venue/${venueId}`).then(venue => {
+      dispatch(venueUpdated(venue.data));
     })
     .catch(e => {
       console.log(e);
     })
+  }
+}
+
+function venueUpdated(venue) {
+  return {
+    type: constants.UPDATE_VENUE,
+    payload: venue
   }
 }
 

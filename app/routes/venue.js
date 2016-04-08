@@ -11,28 +11,28 @@ venueRouter.get('/:venueId', (req, res, next) => {
       // Add or remove user from venue
       if (venue.userIds.indexOf(userId) !== -1) {
         // Remove User Id
-        h.removeUserFromVenue(venueId, userId).then(response => {
-          return res.send('User has been removed from attendees');
+        h.removeUserFromVenue(venueId, userId).then(updatedVenue => {
+          return res.send(updatedVenue);
         })
         .catch(err => {
-          res.status(500).send(err);
+          return res.status(500).send('Could not remove userId');
         });
       } else {
         // Add user to attendees
-        h.addUserToVenue(venueId, userId).then(response => {
-          res.send(response);
+        h.addUserToVenue(venueId, userId).then(updatedVenue => {
+          return res.send(updatedVenue);
         })
         .catch(err => {
-          return res.status(500).send(err);
+          return res.status(500).send('Could not add userId');
         });
       }
     })
     .catch(e => {
       h.addNewVenue(venueId, userId).then(venue => {
-        res.json(venue)
+        return res.json(venue)
       })
       .catch(e => {
-        res.status(500).send(e);
+        return res.status(500).send('Could not add new venue');
       });
     });
   }

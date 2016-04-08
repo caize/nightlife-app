@@ -13,7 +13,6 @@ let findOne = profileId => {
 }
 
 // Create a new user and return that instance
-
 let createNewUser = profile => {
   return new Promise((resolve, reject) => {
     let newUser = new db.userModel({
@@ -63,14 +62,15 @@ let findOneVenue = id => {
 //Add user to venue
 let addUserToVenue = (venueId, userId) => {
   return new Promise((resolve, reject) => {
-    db.venueModel.update(
+    db.venueModel.findOneAndUpdate(
       {venueId: venueId},
       { $addToSet: { userIds: userId}},
-      ((err) => {
+      {new: true},
+      ((err, venue) => {
         if (err) {
           reject(err);
         } else {
-          resolve('user added to venue attendees');
+          resolve(venue);
         }
       })
     );
@@ -80,14 +80,15 @@ let addUserToVenue = (venueId, userId) => {
 //remove user from venue
 let removeUserFromVenue = (venueId, userId) => {
   return new Promise((resolve, reject) => {
-    db.venueModel.update(
+    db.venueModel.findOneAndUpdate(
       {venueId: venueId},
       { $pull: {userIds: userId}},
-      ((err) => {
+      {new: true},
+      ((err, venue) => {
         if (err) {
           reject(err);
         } else {
-          resolve('user removed from venue attendees');
+          resolve(venue);
         }
       })
     );
