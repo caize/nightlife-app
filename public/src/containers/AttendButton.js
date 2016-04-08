@@ -15,12 +15,13 @@ class AttendButton extends Component {
   }
 
   render() {
+    let { goingList } = this.props
     if (this.props.user && this.props.user.loggedIn) {
       return (
         <button
           onClick={this.handleClick}
           className="num-going"
-        >{this.props.userCount} going</button>
+        >{goingList.length} going</button>
       )
     }
     return (
@@ -28,7 +29,7 @@ class AttendButton extends Component {
         href="/auth/twitter"
         className="num-going"
       >
-        0 going
+        {goingList.length} going
       </a>
     );
   }

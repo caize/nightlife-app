@@ -7,7 +7,7 @@ import axios from 'axios';
 export function updateVenue(venueId) {
   return (dispatch) => {
     axios.get(`/venue/${venueId}`).then(response => {
-      console.log(response);
+
     })
     .catch(e => {
       console.log(e);
