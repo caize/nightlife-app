@@ -123,6 +123,25 @@ let getAllVenues = () => {
   });
 }
 
+let addRecentSearch = (userId, location) => {
+  return new Promise((resolve, reject) => {
+    db.userModel.findOneAndUpdate({_id: userId},
+      {$set: {
+        recentSearch: location
+      },
+      new: true
+    }, (err, user) => {
+      if (err) {
+        return reject('Could not find user');
+      } else if (!user) {
+        return reject('User does not exist');
+      } else {
+        resolve(user);
+      }
+    });
+  });
+}
+
 module.exports = {
   findOne,
   createNewUser,
@@ -131,5 +150,6 @@ module.exports = {
   addNewVenue,
   addUserToVenue,
   removeUserFromVenue,
-  getAllVenues
+  getAllVenues,
+  addRecentSearch
 }

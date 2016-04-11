@@ -36,7 +36,6 @@ export function getVenues(keyword) {
       let venues = response.data;
       console.log(venues);
       dispatch(venueSuccess(venues));
-      dispatch(updateSearch(keyword));
     })
     .catch((error) => {
       console.log('error: ', error);
@@ -54,10 +53,17 @@ function userLoggedIn(user) {
 export function checkAuthenticated() {
   return (dispatch) => {
     axios.get('/users/current').then(user => {
-      dispatch(userLoggedIn(user.data));
+      let { data } = user;
+      dispatch(userLoggedIn(data));
+      dispatch(updateSearch(data.recentSearch));
+      dispatch(getVenues(data.recentSearch));
     })
-    .catch(e => {
-      console.log(e);
+    .catch(errorResponse => {
+      let { recentSearch } = errorResponse.data;
+      if (typeof recentSearch !== 'undefined') {
+        dispatch(updateSearch(recentSearch));
+        dispatch(getVenues(recentSearch));
+      }
     })
   }
 }

@@ -8,7 +8,12 @@ import { bindActionCreators } from 'redux';
 class App extends Component {
   componentWillMount() {
     this.props.checkAuthenticated();
-    this.props.getVenues('waukesha');
+  }
+
+  componentDidMount() {
+    if (this.props.currentSearch) {
+      this.props.getVenues(this.props.currentSearch);
+    }
   }
 
   searchVenues(location) {
@@ -35,7 +40,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    venues: state.venue.all
+    venues: state.venue.all,
+    currentSearch: state.search.currentTerm
   }
 }
 

@@ -8,6 +8,7 @@ apiRouter.get('/yelp/:location', (req, res, next) => {
   let yelp = new yelpApi();
 
   let location = req.params.location;
+
   let searchOptions = {
     location: location,
     sort: 2,
@@ -15,6 +16,18 @@ apiRouter.get('/yelp/:location', (req, res, next) => {
     radius_filter: 15000,
     category_filter: "bars"
   }
+
+  if (!req.user) {
+    req.session.recentSearch = location;
+  } else {
+    // Add to user as recentSearch
+    h.addRecentSearch(req.user._id, location).then(response => {
+      req.session.recentSearch = '';
+    }, (error) => {
+      console.log('Error adding recent search: ', error);
+    });
+  }
+
   yelp.request_yelp(searchOptions, (error, response, body) => {
     if (error) {
       return res.send(error);
@@ -30,7 +43,6 @@ apiRouter.get('/yelp/:location', (req, res, next) => {
             return dbVenue.venueId === venue.id;
           });
           if (typeof venueObject !== 'undefined') {
-            console.log("Add venueObject");
             // Copy userIds array from db into yelp response
             venue.userIds = venueObject.userIds;
           }
