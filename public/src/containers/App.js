@@ -35,14 +35,19 @@ class App extends Component {
             : null
           }
         </div>
-        <footer>
+        <footer className={
+          typeof this.props.venues === 'undefined' || this.props.venues.length < 3 ?
+          "footer-bottom"
+          : null
+        }
+        >
           <div className="site-info">
             <a
               className="fa fa-github"
               href="https://github.com/chrisdziewa/nightlife-app"
               target="_blank"
             ></a>
-            <p className="copyright">&copy;2016 Chris Dziewa</p>
+            <p className="copyright">&copy;{(new Date()).getFullYear()} Chris Dziewa</p>
             <img src="/img/yelp-btn.png" alt="Powered by Yelp"/>
           </div>
         </footer>
