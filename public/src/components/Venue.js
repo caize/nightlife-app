@@ -19,7 +19,7 @@ const Venue = (props) => {
           alt={'image of ' + props.name}
         />
         <div className="venue-info">
-          <span>Rating: </span>
+          <span className="rating">Rating: </span>
           <img src={props.ratingImg} alt={props.rating + ' stars'}/>
           <p
             className="review-count"

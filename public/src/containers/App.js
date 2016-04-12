@@ -23,16 +23,29 @@ class App extends Component {
   render() {
     return (
       <div className="main-app">
-        <header>
-          <h1>Unwind From The Grind</h1>
-          <p>Your answer to what's going on tonight in your area</p>
-        </header>
-        <SearchBar />
-        {
-          this.props.venues && this.props.venues.length > 0 ?
-            <VenueList venues={ this.props.venues } />
-          : null
-        }
+        <div className="main-container">
+          <header>
+            <h1>Unwind From The Grind</h1>
+            <p>Your answer to what's going on tonight in your area</p>
+          </header>
+          <SearchBar />
+          {
+            this.props.venues && this.props.venues.length > 0 ?
+              <VenueList venues={ this.props.venues } />
+            : null
+          }
+        </div>
+        <footer>
+          <div className="site-info">
+            <a
+              className="fa fa-github"
+              href="https://github.com/chrisdziewa/nightlife-app"
+              target="_blank"
+            ></a>
+            <p className="copyright">&copy;2016 Chris Dziewa</p>
+            <img src="/img/yelp-btn.png" alt="Powered by Yelp"/>
+          </div>
+        </footer>
       </div>
     );
   }

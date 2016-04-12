@@ -1,4 +1,5 @@
 @import '_normalize';
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css');
 
 $dark-purple: rgb(76, 66, 132);
 $darkest-purple: rgb(56, 46, 112);
@@ -14,6 +15,11 @@ $orange: rgba(247, 148, 9, 1);
   box-sizing: border-box;
 }
 
+body,
+html {
+  height: 100%;
+}
+
 body {
   background-image:url('/img/city.jpg');
   background-size: cover;
@@ -27,7 +33,8 @@ li {
 
 .main-app {
   max-width: 1000px;
-  margin: 20px auto;
+  margin: 20px auto 0;
+  position: relative;
 }
 
 /**** Header ****/
@@ -127,7 +134,7 @@ header {
 
 .venue-list {
   width: 100%;
-  margin: 20px auto;
+  margin: 20px auto 0;
   animation: slideInUp .5s .2s ease forwards;
   visibility: hidden;
 
@@ -208,6 +215,9 @@ header {
           cursor: pointer;
           border: none;
           transition: $button-transition;
+          span {
+            bottom: 0;
+          }
 
           &:hover {
             background: $darkest-purple;
@@ -246,8 +256,52 @@ header {
     }
 
   }
+  .venue:last-child {
+    margin-bottom: 0;
+  }
 }
 
+/**** Footer ****/
+footer {
+  text-align: center;
+
+  .site-info {
+    padding: 5px 0;
+    width: 100%;
+    background: rgba(40,40,40,1);
+
+    p {
+      color: rgba(240,240,240,1);
+      text-shadow: 2px 2px 4px $darkest-purple;
+      display: inline-block;
+      margin-right: 20px;
+      font-size: 1.3rem;
+    }
+
+    img {
+      vertical-align: middle;
+      box-shadow: 0 0 10px rgba(240,240,240,.7),
+      0 0 10px rgba(240,240,240,.7);
+    }
+
+    .fa-github {
+      color: rgba(240,240,240,1);
+      font-size: 2.5rem;
+      margin-right: 10px;
+      vertical-align: middle;
+      background: rgba(40,40,40,1);
+      text-decoration: none;
+      transition: color .20s ease;
+      &:focus {
+        box-shadow: none;
+      }
+
+      &:hover {
+        color: $dark-purple;
+      }
+    }
+  }
+}
 
 /**** Animations ****/
 
