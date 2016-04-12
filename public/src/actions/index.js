@@ -60,7 +60,7 @@ export function checkAuthenticated() {
     })
     .catch(errorResponse => {
       let { recentSearch } = errorResponse.data;
-      if (typeof recentSearch !== 'undefined') {
+      if (recentSearch !== '' && typeof recentSearch !== 'undefined') {
         dispatch(updateSearch(recentSearch));
         dispatch(getVenues(recentSearch));
       }

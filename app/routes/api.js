@@ -17,16 +17,7 @@ apiRouter.get('/yelp/:location', (req, res, next) => {
     category_filter: "bars"
   }
 
-  if (!req.user) {
-    req.session.recentSearch = location;
-  } else {
-    // Add to user as recentSearch
-    h.addRecentSearch(req.user._id, location).then(response => {
-      req.session.recentSearch = '';
-    }, (error) => {
-      console.log('Error adding recent search: ', error);
-    });
-  }
+  req.session.recentSearch = location;
 
   yelp.request_yelp(searchOptions, (error, response, body) => {
     if (error) {

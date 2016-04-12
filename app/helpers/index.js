@@ -17,8 +17,7 @@ let createNewUser = profile => {
   return new Promise((resolve, reject) => {
     let newUser = new db.userModel({
       profileId: profile.id,
-      fullName: profile.displayName,
-      recentSearch: ''
+      fullName: profile.displayName
     });
 
     newUser.save(error => {
@@ -123,25 +122,6 @@ let getAllVenues = () => {
   });
 }
 
-let addRecentSearch = (userId, location) => {
-  return new Promise((resolve, reject) => {
-    db.userModel.findOneAndUpdate({_id: userId},
-      {$set: {
-        recentSearch: location
-      },
-      new: true
-    }, (err, user) => {
-      if (err) {
-        return reject('Could not find user');
-      } else if (!user) {
-        return reject('User does not exist');
-      } else {
-        resolve(user);
-      }
-    });
-  });
-}
-
 module.exports = {
   findOne,
   createNewUser,
@@ -150,6 +130,5 @@ module.exports = {
   addNewVenue,
   addUserToVenue,
   removeUserFromVenue,
-  getAllVenues,
-  addRecentSearch
+  getAllVenues
 }
