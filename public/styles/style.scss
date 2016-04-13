@@ -15,8 +15,15 @@ $orange: rgba(247, 148, 9, 1);
   box-sizing: border-box;
 }
 
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
 body {
-  background-image:url('/img/city.jpg');
+  background-image: url('/img/city.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
