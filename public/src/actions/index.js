@@ -32,13 +32,16 @@ function venueSuccess(venues) {
 export function getVenues(keyword) {
   let url = `/api/yelp/${keyword}`
   return (dispatch) => {
+    dispatch(isLoading());
     axios.get(url).then(response => {
       let venues = response.data;
       console.log(venues);
       dispatch(venueSuccess(venues));
+      dispatch(doneLoading());
     })
     .catch((error) => {
       console.log('error: ', error);
+      dispatch(doneLoading());
     });
   }
 }
@@ -52,6 +55,7 @@ function userLoggedIn(user) {
 
 export function checkAuthenticated() {
   return (dispatch) => {
+    dispatch(isLoading());
     axios.get('/users/current').then(user => {
       let { data } = user;
       dispatch(userLoggedIn(data));
@@ -59,14 +63,18 @@ export function checkAuthenticated() {
       dispatch(getVenues(data.recentSearch));
     })
     .catch(errorResponse => {
+      console.log(errorResponse);
       let { recentSearch } = errorResponse.data;
-      if (recentSearch !== '' && typeof recentSearch !== 'undefined') {
+      if (typeof recentSearch !== 'undefined' && recentSearch !== '') {
         dispatch(updateSearch(recentSearch));
         dispatch(getVenues(recentSearch));
+      } else {
+        dispatch(doneLoading());
       }
     })
   }
 }
+
 
 // Search Actions
 
@@ -74,5 +82,20 @@ export function updateSearch(term) {
   return {
     type: constants.UPDATE_SEARCH_TERM,
     payload: term
+  }
+}
+
+
+// Loader Actions
+
+function isLoading() {
+  return {
+    type: constants.IS_LOADING
+  }
+}
+
+function doneLoading() {
+  return {
+    type: constants.DONE_LOADING
   }
 }

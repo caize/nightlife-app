@@ -25,6 +25,11 @@ export default class VenueList extends Component {
   }
 
   render() {
+    if (this.props.isLoading) {
+      return (
+        <div className="loader"></div>
+      );
+    }
     return (
       <div className="venue-list">
         {this.renderVenues()}

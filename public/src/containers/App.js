@@ -29,14 +29,16 @@ class App extends Component {
             <p>Your answer to what's going on tonight in your area</p>
           </header>
           <SearchBar />
-          {
-            this.props.venues && this.props.venues.length > 0 ?
-              <VenueList venues={ this.props.venues } />
-            : null
-          }
+
+          <VenueList
+            venues={ this.props.venues }
+            isLoading={this.props.isLoading}
+          />
+
         </div>
         <footer className={
-          typeof this.props.venues === 'undefined' || this.props.venues.length < 3 ?
+          typeof this.props.venues === 'undefined' ||
+            this.props.venues.length < 3 || this.props.isLoading ?
           "footer-bottom"
           : null
         }
@@ -59,7 +61,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     venues: state.venue.all,
-    currentSearch: state.search.currentTerm
+    currentSearch: state.search.currentTerm,
+    isLoading: state.loader.isLoading
   }
 }
 
